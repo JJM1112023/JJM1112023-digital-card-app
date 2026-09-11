@@ -1,0 +1,481 @@
+<title>Two-Post Lift Power Unit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --paper:#E8EAEE;
+    --surface:#F6F7F9;
+    --ink:#13161B;
+    --ink-2:#4A525E;
+    --rule:#C5CBD4;
+    --blue:#1F4E9C;
+    --amber:#B0621B;
+    --yellow:#D6A200;
+    --red:#B23229;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#14171B;
+      --surface:#1C2027;
+      --ink:#E3E7ED;
+      --ink-2:#98A2AF;
+      --rule:#323944;
+      --blue:#7AA8EC;
+      --amber:#E3A25C;
+      --yellow:#E7C24C;
+      --red:#E37065;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#14171B;
+    --surface:#1C2027;
+    --ink:#E3E7ED;
+    --ink-2:#98A2AF;
+    --rule:#323944;
+    --blue:#7AA8EC;
+    --amber:#E3A25C;
+    --yellow:#E7C24C;
+    --red:#E37065;
+  }
+
+  *{box-sizing:border-box}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    font-size:16px;
+    line-height:1.55;
+    padding-block:56px 88px;
+    padding-inline:20px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:900px;margin-inline:auto;display:grid;gap:52px}
+
+  .eyebrow{
+    font-family:"Barlow Condensed",Arial Narrow,sans-serif;
+    font-weight:600;font-size:14px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--blue);margin:0 0 10px;
+  }
+  h1{
+    font-family:"Barlow Condensed",Arial Narrow,sans-serif;
+    font-weight:700;text-transform:uppercase;
+    font-size:clamp(40px,9vw,70px);line-height:.92;letter-spacing:.005em;
+    margin:0 0 18px;text-wrap:balance;
+  }
+  .standfirst{margin:0;max-width:60ch;color:var(--ink-2);font-size:17px;line-height:1.62}
+
+  h2{
+    font-family:"Barlow Condensed",Arial Narrow,sans-serif;
+    font-weight:700;text-transform:uppercase;letter-spacing:.03em;
+    font-size:26px;line-height:1.1;margin:0 0 14px;
+  }
+  h3{
+    font-family:"Barlow Condensed",Arial Narrow,sans-serif;
+    font-weight:600;text-transform:uppercase;letter-spacing:.08em;
+    font-size:16px;margin:0 0 6px;
+  }
+  p{margin:0 0 14px;max-width:62ch}
+  p:last-child{margin-bottom:0}
+
+  .specs{
+    display:grid;gap:20px 30px;
+    grid-template-columns:repeat(auto-fit,minmax(158px,1fr));
+    border-block:1px solid var(--rule);
+    padding-block:20px;margin:0;
+  }
+  .specs dt{
+    font-family:"Barlow Condensed",Arial Narrow,sans-serif;
+    font-weight:600;font-size:12.5px;letter-spacing:.15em;text-transform:uppercase;
+    color:var(--ink-2);margin-bottom:3px;
+  }
+  .specs dd{
+    margin:0;font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-size:15px;font-variant-numeric:tabular-nums;
+  }
+
+  figure{margin:0}
+  .fig-frame{
+    background:var(--surface);
+    border:1px solid var(--rule);
+    padding:22px;
+    overflow-x:auto;
+  }
+  .fig-frame svg{display:block;width:100%;max-width:100%;height:auto}
+  figcaption{
+    margin-top:12px;font-size:14px;line-height:1.55;color:var(--ink-2);max-width:62ch;
+  }
+
+  .p{fill:var(--paper);stroke:currentColor;stroke-width:1.6;stroke-linejoin:round}
+  .detail{fill:none;stroke:currentColor;stroke-width:1.1;opacity:.55}
+  .axis{fill:none;stroke:currentColor;stroke-width:1;stroke-dasharray:9 7;opacity:.32}
+  .lead{fill:none;stroke:currentColor;stroke-width:.9;opacity:.5}
+  .tie{fill:none;stroke:currentColor;stroke-width:1;stroke-dasharray:5 5;opacity:.5}
+  .bdg{fill:var(--surface);stroke:currentColor;stroke-width:1.3}
+  .bnum{font-family:"IBM Plex Mono",monospace;font-size:12px;fill:currentColor;text-anchor:middle}
+  .lbl{font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:14px;letter-spacing:.07em;text-transform:uppercase;fill:currentColor}
+  .sub{font-family:"IBM Plex Mono",monospace;font-size:11px;fill:currentColor;opacity:.62;text-anchor:middle}
+  .hot{fill:var(--red);stroke:currentColor;stroke-width:1.1}
+  .caut{fill:var(--yellow);stroke:currentColor;stroke-width:1}
+  .hyd{fill:none;stroke:var(--amber);stroke-width:2.4;stroke-linecap:round}
+  .hyd-d{fill:none;stroke:var(--amber);stroke-width:2.2;stroke-dasharray:7 6;stroke-linecap:round}
+  .elec{fill:none;stroke:var(--blue);stroke-width:2.2;stroke-linecap:round}
+  .mech{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
+  .alab{font-family:"IBM Plex Mono",monospace;font-size:11.5px;fill:currentColor;opacity:.78}
+
+  .scroll{overflow-x:auto}
+  table{border-collapse:collapse;width:100%;min-width:620px;font-size:14.5px}
+  caption{
+    font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:12.5px;
+    letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2);
+    text-align:left;padding-bottom:10px;
+  }
+  th{
+    font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:12.5px;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);
+    text-align:left;padding:0 16px 9px 0;border-bottom:1.5px solid var(--ink);
+  }
+  td{padding:12px 16px 12px 0;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.5}
+  td:first-child,th:first-child{
+    width:34px;padding-right:14px;
+    font-family:"IBM Plex Mono",monospace;color:var(--blue);font-variant-numeric:tabular-nums;
+  }
+  td:nth-child(2){font-weight:600;white-space:nowrap}
+  tr:last-child td{border-bottom:none}
+
+  .symptoms{display:grid;gap:24px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .symptom{border-top:2px solid var(--ink);padding-top:12px}
+  .symptom p{font-size:14.5px;color:var(--ink-2);margin:0}
+
+  .note{
+    border-left:3px solid var(--yellow);
+    padding:2px 0 2px 16px;
+    font-size:14.5px;color:var(--ink-2);
+  }
+  .note strong{color:var(--ink)}
+  a{color:var(--blue)}
+  a:focus-visible,:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+</style>
+
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow">Shop reference</p>
+    <h1>Two-Post Lift Power Unit</h1>
+    <p class="standfirst">
+      The whole lift comes down to one column-mounted assembly: an electric motor bolted to a gear
+      pump, sitting on a plastic reservoir. Twelve parts, two circuits. Here is what each piece does
+      and what it does when it fails.
+    </p>
+  </header>
+
+  <dl class="specs">
+    <div><dt>Rated capacity</dt><dd>9,000 lb</dd></div>
+    <div><dt>Motor</dt><dd>2 HP, 220 V, 1-ph</dd></div>
+    <div><dt>Reservoir</dt><dd>~3 US gal</dd></div>
+    <div><dt>Working pressure</dt><dd>~2,700 psi</dd></div>
+    <div><dt>Fluid</dt><dd>AW-32 or ATF</dd></div>
+    <div><dt>Restart interval</dt><dd>15 s minimum</dd></div>
+  </dl>
+
+  <figure>
+    <div class="fig-frame">
+      <svg viewBox="0 0 860 1120" role="img"
+           aria-label="Exploded view of a two-post lift power unit: disconnect switch, flexible conduit, capacitor cover, raise push-button, electric motor, motor-to-pump coupling, pump and valve manifold, release lever, pressure hose, fill cap, reservoir tank, and column mounting bracket, separated along a vertical assembly axis.">
+
+        <line class="axis" x1="380" y1="56" x2="380" y2="1100"/>
+
+        <!-- 1 disconnect switch -->
+        <g>
+          <rect class="p" x="330" y="70" width="100" height="72" rx="4"/>
+          <rect class="hot" x="366" y="86" width="28" height="40" rx="3"/>
+          <line class="detail" x1="380" y1="96" x2="380" y2="116"/>
+          <line class="lead" x1="430" y1="106" x2="507" y2="106"/>
+          <circle class="bdg" cx="520" cy="106" r="13"/>
+          <text class="bnum" x="520" y="110">1</text>
+          <text class="lbl" x="542" y="111">Disconnect switch</text>
+        </g>
+
+        <!-- 2 flexible conduit whip -->
+        <g>
+          <line class="p" x1="380" y1="148" x2="380" y2="186"/>
+          <line class="detail" x1="368" y1="152" x2="392" y2="152"/>
+          <line class="detail" x1="368" y1="160" x2="392" y2="160"/>
+          <line class="detail" x1="368" y1="168" x2="392" y2="168"/>
+          <line class="detail" x1="368" y1="176" x2="392" y2="176"/>
+          <line class="detail" x1="368" y1="184" x2="392" y2="184"/>
+          <line class="lead" x1="396" y1="166" x2="507" y2="166"/>
+          <circle class="bdg" cx="520" cy="166" r="13"/>
+          <text class="bnum" x="520" y="170">2</text>
+          <text class="lbl" x="542" y="171">Flex conduit</text>
+        </g>
+
+        <!-- 3 capacitor cover -->
+        <g>
+          <rect class="p" x="332" y="202" width="96" height="44" rx="5"/>
+          <line class="detail" x1="332" y1="232" x2="428" y2="232"/>
+          <line class="lead" x1="428" y1="224" x2="507" y2="224"/>
+          <circle class="bdg" cx="520" cy="224" r="13"/>
+          <text class="bnum" x="520" y="228">3</text>
+          <text class="lbl" x="542" y="229">Capacitor cover</text>
+        </g>
+
+        <!-- 4 raise push-button switch -->
+        <g>
+          <rect class="p" x="160" y="306" width="110" height="96" rx="5"/>
+          <circle class="detail" cx="215" cy="340" r="10"/>
+          <rect class="caut" x="172" y="370" width="86" height="16" rx="2"/>
+          <line class="tie" x1="270" y1="354" x2="305" y2="354"/>
+          <line class="lead" x1="138" y1="354" x2="160" y2="354"/>
+          <circle class="bdg" cx="125" cy="354" r="13"/>
+          <text class="bnum" x="125" y="358">4</text>
+          <text class="lbl" x="104" y="359" text-anchor="end">Raise button</text>
+        </g>
+
+        <!-- 5 electric motor -->
+        <g>
+          <rect class="p" x="305" y="276" width="150" height="168" rx="7"/>
+          <line class="detail" x1="325" y1="292" x2="325" y2="428"/>
+          <line class="detail" x1="345" y1="292" x2="345" y2="428"/>
+          <line class="detail" x1="365" y1="292" x2="365" y2="428"/>
+          <line class="detail" x1="395" y1="292" x2="395" y2="428"/>
+          <line class="detail" x1="415" y1="292" x2="415" y2="428"/>
+          <line class="detail" x1="435" y1="292" x2="435" y2="428"/>
+          <line class="lead" x1="455" y1="360" x2="507" y2="360"/>
+          <circle class="bdg" cx="520" cy="360" r="13"/>
+          <text class="bnum" x="520" y="364">5</text>
+          <text class="lbl" x="542" y="365">Electric motor</text>
+        </g>
+
+        <!-- 6 coupling -->
+        <g>
+          <rect class="p" x="340" y="474" width="80" height="40" rx="3"/>
+          <circle class="detail" cx="352" cy="484" r="4.5"/>
+          <circle class="detail" cx="408" cy="484" r="4.5"/>
+          <circle class="detail" cx="352" cy="504" r="4.5"/>
+          <circle class="detail" cx="408" cy="504" r="4.5"/>
+          <line class="lead" x1="420" y1="494" x2="507" y2="494"/>
+          <circle class="bdg" cx="520" cy="494" r="13"/>
+          <text class="bnum" x="520" y="498">6</text>
+          <text class="lbl" x="542" y="499">Coupling</text>
+        </g>
+
+        <!-- 7 pump and valve manifold -->
+        <g>
+          <rect class="p" x="318" y="544" width="124" height="104" rx="4"/>
+          <line class="detail" x1="318" y1="588" x2="442" y2="588"/>
+          <circle class="detail" cx="380" cy="566" r="12"/>
+          <rect class="p" x="442" y="608" width="22" height="24" rx="2"/>
+          <line class="lead" x1="442" y1="596" x2="507" y2="596"/>
+          <circle class="bdg" cx="520" cy="596" r="13"/>
+          <text class="bnum" x="520" y="600">7</text>
+          <text class="lbl" x="542" y="601">Pump &amp; manifold</text>
+        </g>
+
+        <!-- 8 release lever -->
+        <g>
+          <line class="mech" x1="318" y1="614" x2="238" y2="660"/>
+          <circle class="p" cx="226" cy="666" r="11"/>
+          <line class="lead" x1="138" y1="666" x2="213" y2="666"/>
+          <circle class="bdg" cx="125" cy="666" r="13"/>
+          <text class="bnum" x="125" y="670">8</text>
+          <text class="lbl" x="104" y="671" text-anchor="end">Release lever</text>
+        </g>
+
+        <!-- 9 pressure hose -->
+        <g>
+          <path class="hyd" d="M464 620 H700 Q720 620 720 640 V647"/>
+          <path class="hyd" d="M720 673 V998"/>
+          <polygon points="720,1014 713,998 727,998" fill="var(--amber)"/>
+          <circle class="bdg" cx="720" cy="660" r="13"/>
+          <text class="bnum" x="720" y="664">9</text>
+          <text class="sub" x="720" y="1034">to cylinders</text>
+        </g>
+
+        <!-- 10 fill cap -->
+        <g>
+          <rect class="p" x="362" y="658" width="36" height="24" rx="3"/>
+          <line class="detail" x1="370" y1="666" x2="390" y2="666"/>
+          <line class="lead" x1="398" y1="670" x2="507" y2="670"/>
+          <circle class="bdg" cx="520" cy="670" r="13"/>
+          <text class="bnum" x="520" y="674">10</text>
+          <text class="lbl" x="542" y="675">Fill cap</text>
+        </g>
+
+        <!-- 11 reservoir tank -->
+        <g>
+          <polygon class="p" points="352,682 408,682 438,706 322,706"/>
+          <rect class="p" x="322" y="706" width="116" height="286" rx="6"/>
+          <line class="detail" x1="346" y1="722" x2="346" y2="976"/>
+          <line class="detail" x1="370" y1="722" x2="370" y2="976"/>
+          <line class="detail" x1="394" y1="722" x2="394" y2="976"/>
+          <line class="detail" x1="418" y1="722" x2="418" y2="976"/>
+          <line class="lead" x1="438" y1="850" x2="507" y2="850"/>
+          <circle class="bdg" cx="520" cy="850" r="13"/>
+          <text class="bnum" x="520" y="854">11</text>
+          <text class="lbl" x="542" y="855">Reservoir tank</text>
+        </g>
+
+        <!-- 12 column bracket -->
+        <g>
+          <rect class="p" x="290" y="1022" width="180" height="54" rx="4"/>
+          <circle class="detail" cx="316" cy="1038" r="6"/>
+          <circle class="detail" cx="444" cy="1038" r="6"/>
+          <circle class="detail" cx="316" cy="1060" r="6"/>
+          <circle class="detail" cx="444" cy="1060" r="6"/>
+          <line class="lead" x1="470" y1="1048" x2="507" y2="1048"/>
+          <circle class="bdg" cx="520" cy="1048" r="13"/>
+          <text class="bnum" x="520" y="1052">12</text>
+          <text class="lbl" x="542" y="1049">Column bracket</text>
+        </g>
+
+      </svg>
+    </div>
+    <figcaption>
+      Parts separated along the assembly axis, in the order they stack on the column. Items 4 and 8
+      are the two things an operator ever touches. Item 9 leaves the manifold and runs down the
+      column to the cylinders.
+    </figcaption>
+  </figure>
+
+  <section>
+    <h2>Parts list</h2>
+    <div class="scroll">
+      <table>
+        <caption>Keyed to the exploded view</caption>
+        <thead>
+          <tr><th>No.</th><th>Part</th><th>What it does</th><th>Watch for</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Disconnect switch</td><td>Cuts line power to the unit at the column.</td><td>Leave it off before any service. It is the only lockout point on the machine.</td></tr>
+          <tr><td>2</td><td>Flex conduit</td><td>Carries line voltage from the disconnect to the motor junction box.</td><td>Chafed jacket where it flexes against the column.</td></tr>
+          <tr><td>3</td><td>Capacitor cover</td><td>Houses the motor start capacitor on top of the end bell.</td><td>A hum with no rotation is a dead start capacitor, not a dead motor.</td></tr>
+          <tr><td>4</td><td>Raise button</td><td>Momentary contact. Power flows only while it is held down.</td><td>Contacts weld shut. Then the motor runs until the disconnect is opened.</td></tr>
+          <tr><td>5</td><td>Electric motor</td><td>Spins the pump. Roughly 2 HP on single-phase 220 V.</td><td>Internal thermal overload trips on short cycling, then resets when cool.</td></tr>
+          <tr><td>6</td><td>Coupling</td><td>Bolted flange joining the motor shaft to the pump drive.</td><td>A rattle under load means loose bolts or a chewed coupler insert.</td></tr>
+          <tr><td>7</td><td>Pump &amp; manifold</td><td>Gear pump plus check valve, relief valve, and flow control in one body.</td><td>Relief chatter at the top of travel is normal. Chatter mid-travel is not.</td></tr>
+          <tr><td>8</td><td>Release lever</td><td>Opens the lowering valve so fluid returns to tank.</td><td>Never pull it before the safety locks are off the ladder.</td></tr>
+          <tr><td>9</td><td>Pressure hose</td><td>Feeds the cylinder or cylinders at roughly 2,700 psi.</td><td>Weeping at the crimped fitting. Replace the hose, do not retighten the crimp.</td></tr>
+          <tr><td>10</td><td>Fill cap</td><td>Fill point and tank breather.</td><td>A blocked vent starves the pump and reads exactly like low fluid.</td></tr>
+          <tr><td>11</td><td>Reservoir tank</td><td>Holds about three gallons of AW-32 hydraulic oil or ATF.</td><td>Check level with the lift fully down. Filling it up gives a false high reading.</td></tr>
+          <tr><td>12</td><td>Column bracket</td><td>Carries the unit on the column and takes the pump reaction torque.</td><td>Elongated bolt holes from years of start torque.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <figure>
+    <div class="fig-frame">
+      <svg viewBox="0 0 900 380" role="img"
+           aria-label="Circuit diagram. Electrical path: shop circuit through disconnect and momentary raise button to the motor, which is directly coupled to the gear pump. Hydraulic path: reservoir to pump to cylinders at 2,700 psi. Return path: cylinders back to reservoir through the release lever, driven by gravity, with the motor off.">
+
+        <defs>
+          <marker id="ae" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+            <polygon points="0,0 9,4.5 0,9" fill="var(--blue)"/>
+          </marker>
+          <marker id="ah" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+            <polygon points="0,0 9,4.5 0,9" fill="var(--amber)"/>
+          </marker>
+          <marker id="am" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+            <polygon points="0,0 9,4.5 0,9" fill="currentColor"/>
+          </marker>
+        </defs>
+
+        <!-- electrical row -->
+        <rect class="p" x="20" y="44" width="110" height="56" rx="3"/>
+        <text class="lbl" x="75" y="69" text-anchor="middle">Shop circuit</text>
+        <text class="sub" x="75" y="87">240 V</text>
+
+        <rect class="p" x="200" y="44" width="110" height="56" rx="3"/>
+        <text class="lbl" x="255" y="78" text-anchor="middle">Disconnect</text>
+
+        <rect class="p" x="380" y="44" width="110" height="56" rx="3"/>
+        <text class="lbl" x="435" y="69" text-anchor="middle">Raise button</text>
+        <text class="sub" x="435" y="87">momentary</text>
+
+        <rect class="p" x="560" y="44" width="110" height="56" rx="3"/>
+        <text class="lbl" x="615" y="69" text-anchor="middle">Motor</text>
+        <text class="sub" x="615" y="87">2 HP</text>
+
+        <line class="elec" x1="130" y1="72" x2="192" y2="72" marker-end="url(#ae)"/>
+        <text class="alab" x="161" y="62" text-anchor="middle">line in</text>
+        <line class="elec" x1="310" y1="72" x2="372" y2="72" marker-end="url(#ae)"/>
+        <text class="alab" x="341" y="62" text-anchor="middle">switched</text>
+        <line class="elec" x1="490" y1="72" x2="552" y2="72" marker-end="url(#ae)"/>
+        <text class="alab" x="521" y="62" text-anchor="middle">held only</text>
+
+        <line class="mech" x1="615" y1="100" x2="615" y2="182" marker-end="url(#am)"/>
+        <text class="alab" x="627" y="146">direct-coupled</text>
+
+        <!-- hydraulic row -->
+        <rect class="p" x="380" y="190" width="110" height="56" rx="3"/>
+        <text class="lbl" x="435" y="215" text-anchor="middle">Reservoir</text>
+        <text class="sub" x="435" y="233">3 gal</text>
+
+        <rect class="p" x="560" y="190" width="110" height="56" rx="3"/>
+        <text class="lbl" x="615" y="215" text-anchor="middle">Gear pump</text>
+        <text class="sub" x="615" y="233">manifold</text>
+
+        <rect class="p" x="740" y="190" width="110" height="56" rx="3"/>
+        <text class="lbl" x="795" y="215" text-anchor="middle">Cylinders</text>
+        <text class="sub" x="795" y="233">9,000 lb</text>
+
+        <line class="hyd" x1="490" y1="218" x2="552" y2="218" marker-end="url(#ah)"/>
+        <text class="alab" x="521" y="208" text-anchor="middle">suction</text>
+        <line class="hyd" x1="670" y1="218" x2="732" y2="218" marker-end="url(#ah)"/>
+        <text class="alab" x="701" y="208" text-anchor="middle">2,700 psi</text>
+
+        <!-- return path -->
+        <rect class="p" x="590" y="290" width="110" height="56" rx="3"/>
+        <text class="lbl" x="645" y="322" text-anchor="middle">Release lever</text>
+
+        <path class="hyd-d" d="M795 246 V318 H708"/>
+        <text class="alab" x="751" y="308" text-anchor="middle">gravity return</text>
+        <path class="hyd-d" d="M590 318 H455 V254" marker-end="url(#ah)"/>
+        <text class="alab" x="522" y="308" text-anchor="middle">throttled</text>
+
+      </svg>
+    </div>
+    <figcaption>
+      The motor only lifts. Holding the raise button runs the pump, which pushes fluid from the tank
+      into the cylinders. Lowering never involves the motor: the lever opens a return path and the
+      weight of the vehicle pushes the fluid back to the tank through a flow control that sets the
+      descent speed.
+    </figcaption>
+  </figure>
+
+  <section>
+    <h2>When it acts up</h2>
+    <div class="symptoms">
+      <div class="symptom">
+        <h3>Hums, will not turn</h3>
+        <p>Start capacitor, nearly always. A motor that hums is receiving power and failing to
+        start, which is a different repair from a motor that is silent.</p>
+      </div>
+      <div class="symptom">
+        <h3>Dead after several quick cycles</h3>
+        <p>Thermal overload. The decal asks for fifteen seconds between starts for this reason.
+        Give it twenty minutes and it comes back on its own.</p>
+      </div>
+      <div class="symptom">
+        <h3>Slow or jerky rise</h3>
+        <p>Low fluid or air in the system. Top off with the lift all the way down, then cycle it to
+        full height three times with no load to bleed it.</p>
+      </div>
+      <div class="symptom">
+        <h3>Drifts down overnight</h3>
+        <p>The check valve in the manifold or the cylinder seals. Not the hose, and not the release
+        lever unless it was left cracked open.</p>
+      </div>
+    </div>
+  </section>
+
+  <p class="note">
+    <strong>Values here are typical for this class of unit.</strong> The capacity plate on the
+    machine reads 9,000 lb, and the decal on the switch box calls for fifteen seconds between
+    starts. Everything else, motor rating, fluid type, relief setting, comes off the data plate on
+    your own motor and the manual for your lift model. Always rest the lift on its mechanical
+    safety locks before anyone goes underneath.
+  </p>
+
+</div>
